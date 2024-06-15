@@ -1,0 +1,1 @@
+--format bc4 --quality normal --mips --mip-filter box --weight-a 0.8 --bias-a 0.4 --zcmp 10 --to-normal-os --normal-filter dudv --clamp --normal-invert-x --normal-min-z 0.893 --normal-scale 64 --height max --normal-alpha height --forward -z --up +y --right +x --serialized-effects-v1 "4 1 1 3 3 6 6 15 13 1 "

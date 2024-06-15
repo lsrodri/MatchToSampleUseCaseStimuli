@@ -1,0 +1,1 @@
+--format bc4 --quality normal --mips --mip-filter box --weight-a 0.9 --zcmp 5 --to-normal --normal-filter 9x9 --clamp --normal-min-z 0.984 --normal-scale 64 --height screen --normal-alpha unchanged --serialized-effects-v1 "1 1 1 "
