@@ -2,23 +2,15 @@ import os
 import csv
 import random
 
-NUM_ROWS = 108  # Number of trials per participant
-BLOCK_SIZE = 6  # Trial blocks with the same condition
+NUM_ROWS = 90  # Number of trials per participant
+BLOCK_SIZE = 5  # Trial blocks with the same condition
 SAMPLE_TIME = 10000  # milliseconds
 COMPARISON_TIME = 20000  # milliseconds
-SAMPLES = list(range(1, 109))  # 90 samples
-PARTICIPANTS = list(range(1, 31))  # 30 participants
+SAMPLES = list(range(1, 91))  # 90 samples
+PARTICIPANTS = list(range(1, 91))  # 30 participants
 CONDITION_TYPES = ['V', 'VH', 'H']  # Conditions: Visual, Visuohaptic, Haptic
 TRIAD_RANDOMIZATION = True  # Randomizing condition types every 3 blocks
 SAMPLE_ORDER_DIVIDER = NUM_ROWS // 2
-
-# Read the generated_paths.csv file and create a dictionary with ID as key
-# This file contains the generated stimuli path coordinates and IDs, the latter is used to retrieve corresponding obj files
-path_dict = {}
-with open('generated_paths.csv') as pathfile:
-    reader = csv.DictReader(pathfile)
-    for row in reader:
-        path_dict[int(row['ID'])] = {'Path': row['Path'], 'Foil': row['Foil']}
 
 # Create a list of tuples representing each row of data
 rows = []
@@ -74,10 +66,10 @@ for participant in PARTICIPANTS:
 
     for i in range(NUM_ROWS):
         sample_num = SAMPLES[i]
-        path_info = path_dict[sample_num]
+        
         condition = conditions[i]
-        rows.append([participant, i + 1, "", sample_order[i], SAMPLE_TIME, COMPARISON_TIME, condition,"",
-                     path_info['Path'], path_info['Foil']])
+        rows.append([participant, i + 1, "", sample_order[i], SAMPLE_TIME, COMPARISON_TIME, condition,
+                     "",""])
 
 # After appending all rows, let's balance the "left" and "right" sample_order values
 for participant in PARTICIPANTS:
@@ -117,7 +109,7 @@ with open('match_to_sample_data.csv', 'w', newline='') as csvfile:
     writer = csv.writer(csvfile)
     writer.writerow(
         ['participantID', 'trialNumber', 'sampleNumber', 'sampleOrder', 'sampleTime', 'comparisonTime',
-         'condition', 'template'])
+         'condition'])
     # Assuming that 'rows' is a list of lists and each inner list represents a row
     # Remove the 'path' and 'foil' column values from each row
     writer.writerows([row[:-2] for row in rows])

@@ -1,0 +1,10 @@
+participant,condition,sampleNumber
+A,V,A
+A,H,B
+A,VH,C
+B,V,C
+B,H,A
+B,VH,B
+C,V,B
+C,H,C
+C,VH,A
