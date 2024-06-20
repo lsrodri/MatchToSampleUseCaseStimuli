@@ -119,10 +119,10 @@ distribution_balanced = data.groupby(['sampleNumber', 'condition']).size().unsta
 distribution_balanced = distribution_balanced.astype(int)
 
 # Check if the distribution is balanced
-is_balanced = (distribution_balanced == 30).all().all()
+is_balanced = (distribution_balanced == 10).all().all()
 
 # Save the balanced data to a new CSV file
-output_file_path_balanced = 'trials.csv'
+output_file_path_balanced = 'trials_v_h_vh.csv'
 data.to_csv(output_file_path_balanced, index=False)
 
 print("Output file saved at:", output_file_path_balanced)
