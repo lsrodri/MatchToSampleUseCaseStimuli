@@ -4,7 +4,7 @@ import numpy as np
 
 # Get the current working directory (the folder where the script is running)
 image_folder = os.getcwd()
-output_folder = os.path.join(image_folder, 'd')
+output_folder = os.path.join(image_folder, 'eroded')
 
 # Create the output folder if it doesn't exist
 if not os.path.exists(output_folder):
@@ -22,7 +22,7 @@ for filename in os.listdir(image_folder):
 
         if image is not None:
             # Increase brightness by 20%
-            image = cv2.convertScaleAbs(image, alpha=1, beta=50)  # beta value increases brightness
+            # image = cv2.convertScaleAbs(image, alpha=1, beta=50)  # beta value increases brightness
 
             # Apply erosion
             eroded_image = cv2.erode(image, kernel, iterations=1)
