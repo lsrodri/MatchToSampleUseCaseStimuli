@@ -114,15 +114,41 @@ def assign_sample_numbers(data, scheme):
 data['sampleNumber'] = np.nan
 data = assign_sample_numbers(data, scheme)
 
+# Balance the sample order to prevent three consecutive trials with the same sampleOrder
+def balance_sample_order(data):
+    participants = data['participantID'].unique()
+    
+    for participant in participants:
+        participant_data = data[data['participantID'] == participant].copy()
+        sample_orders = participant_data['sampleOrder'].tolist()
+        
+        for i in range(len(sample_orders) - 2):
+            # Check for three consecutive trials with the same sampleOrder
+            if sample_orders[i] == sample_orders[i+1] == sample_orders[i+2]:
+                # Find a later trial with a different sampleOrder
+                for j in range(i+3, len(sample_orders)):
+                    if sample_orders[j] != sample_orders[i]:
+                        # Swap the sampleOrders
+                        sample_orders[i+2], sample_orders[j] = sample_orders[j], sample_orders[i+2]
+                        break
+        
+        # Update the sampleOrders in the data
+        data.loc[data['participantID'] == participant, 'sampleOrder'] = sample_orders
+    
+    return data
+
+# Apply the function
+data = balance_sample_order(data)
+
 # Verify the distribution of sampleNumbers per condition
 distribution_balanced = data.groupby(['sampleNumber', 'condition']).size().unstack().fillna(0)
 distribution_balanced = distribution_balanced.astype(int)
 
 # Check if the distribution is balanced
-is_balanced = (distribution_balanced == 30).all().all()
+is_balanced = (distribution_balanced == 10).all().all()
 
 # Save the balanced data to a new CSV file
-output_file_path_balanced = 'trials.csv'
+output_file_path_balanced = 'trials_v_h_vh.csv'
 data.to_csv(output_file_path_balanced, index=False)
 
 print("Output file saved at:", output_file_path_balanced)
