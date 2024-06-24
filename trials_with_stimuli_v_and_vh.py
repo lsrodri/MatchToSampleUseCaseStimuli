@@ -5,7 +5,7 @@ import pandas as pd
 import numpy as np
 
 NUM_ROWS = 96  # Number of trials per participant
-BLOCK_SIZE = 8  # Trial blocks with the same condition
+BLOCK_SIZE = 12  # Trial blocks with the same condition
 SAMPLE_TIME = 15000  # milliseconds
 COMPARISON_TIME = 25000  # milliseconds
 SAMPLES = list(range(1, 97))  # 90 samples
@@ -33,12 +33,6 @@ for participant in PARTICIPANTS:
 
     # Define the conditions
     CONDITIONS = ['V', 'VH']
-
-    # Define the block size
-    BLOCK_SIZE = 8
-
-    # Define the number of rows
-    NUM_ROWS = 96
 
     # Create the samples
     SAMPLES = CONDITIONS * (NUM_ROWS // len(CONDITIONS))
